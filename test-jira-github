@@ -1,0 +1,59 @@
+name: Commit Checker
+
+# Run on push to any branch
+on: [push]
+
+jobs:
+  Commit_Checker:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Check Commit Type
+      uses: gsactions/commit-message-checker@v1
+      with:
+        pattern: 'UTX-[0-9]+'
+        flags: 'gm'
+        error: 'Your first line has to contain a commit type like "UTX-1".'
+    
+    - name: Login
+      uses: atlassian/gajira-login@master
+      env:
+        JIRA_BASE_URL: "https://uneritx.atlassian.net"
+        JIRA_USER_EMAIL: ${{ secrets.JIRA_USER }}
+        JIRA_API_TOKEN: ${{ secrets.JIRA_TOKEN }}
+
+    - name: Find in commit messages
+      id: jira_issue
+      uses: atlassian/gajira-find-issue-key@master
+      with:
+        from: commits
+    
+    - name: Echo JIRA Issue
+      if: ${{steps.jira_issue.outputs.Issue == ''}}
+      uses: actions/github-script@v3
+      with:
+        script: |
+          core.setFailed('JIRA Issue Not Found. Please use a valid JIRA Issue')
+          
+    - name: checkout repo content
+      uses: actions/checkout@v2 # checkout the repository content to github runner.  
+      
+    - name: setup python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8 #install the python needed
+        run: |
+          python -m pip install --upgrade pip
+          pip install jira
+    - name: execute py script # run file
+      run: |
+          python jira_status_checker.py ${{steps.jira_issue.outputs.Issue}}
+      env:
+        JIRA_BASE_URL: "https://uneritx.atlassian.net"
+        JIRA_USER_LOCAL: ${{ secrets.JIRA_USER }}
+        JIRA_TOKEN_LOCAL: ${{ secrets.JIRA_TOKEN }}
+    
+    
+
+  
+  
