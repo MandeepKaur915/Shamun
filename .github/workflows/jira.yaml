@@ -27,4 +27,10 @@ jobs:
       uses: atlassian/gajira-find-issue-key@master
       with:
         from: commits
-    
+        
+    - name: Echo JIRA Issue
+      if: ${{steps.jira_issue.outputs.Issue == ''}}
+      uses: actions/github-script@v3
+      with:
+        script: |
+          core.setFailed('JIRA Issue Not Found. Please use a valid JIRA Issue')
