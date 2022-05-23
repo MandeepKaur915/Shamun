@@ -13,7 +13,7 @@ jobs:
       with:
         pattern: 'MAN-[0-9]+'
         flags: 'gm'
-        error: 'Your first line has to contain a commit type like "UTX-1".'
+        error: 'Your first line has to contain a commit type like "MAN-1".'
     
     - name: Login
       uses: atlassian/gajira-login@master
