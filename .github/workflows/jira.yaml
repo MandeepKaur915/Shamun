@@ -57,7 +57,7 @@ jobs:
         output=$(python jira_status_checker.py ${{steps.jira_issue.outputs.Issue}})
         echo "${output}}"
         echo "::set-output name=jira_status::$output"
-#          python jira_status_checker.py ${{steps.jira_issue.outputs.Issue}}
+          python jira_status_checker.py ${{steps.jira_issue.outputs.Issue}}
       env:
         JIRA_BASE_URL: "https://mandeep915.atlassian.net/"
         JIRA_USER_LOCAL: ${{ secrets.JIRA_USER }}
