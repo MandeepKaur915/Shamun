@@ -53,12 +53,15 @@ jobs:
         
     - name: get status of jira issue
       uses: actions/github-script@v3
+      env:
+        username: ${{ secrets.JIRA_USER }}
+        password: ${{ secrets.JIRA_TOKEN }}
       with:
         Script: |
           function getTicketStatus($id) {
               $url = "https://mandeep915.atlassian.net/rest/api/2/issue/$ticketID?fields=status";
               $curl = curl_init();
-              curl_setopt($curl, CURLOPT_USERPWD, " ${{ secrets.JIRA_USER }}:${{ secrets.JIRA_TOKEN }};
+              curl_setopt($curl, CURLOPT_USERPWD, "$username:$password");
               curl_setopt($curl, CURLOPT_URL, $url);
               curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
               curl_setopt($curl, CURLOPT_FOLLOWLOCATION, 1);
