@@ -54,7 +54,7 @@ jobs:
     - name: get status of jira issue
       uses: actions/setup-python@v2
       with:
-        Script:| 
+        Script: | 
           from jira import JIRA
 	  jiraOptions = {'server': "https://uneritx.atlassian.net"}
           jira = JIRA(options = jiraOptions,
