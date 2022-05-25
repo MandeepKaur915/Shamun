@@ -51,7 +51,7 @@ jobs:
         JIRA_USER_LOCAL: ${{ secrets.JIRA_USER }}
         JIRA_TOKEN_LOCAL: ${{ secrets.JIRA_TOKEN }}
         
-    - name: get status of jira issue
+    - name: get status of jira issues
       run:  |  
            from jira import JIRA
 	   jiraOptions = {'server': "https://uneritx.atlassian.net"}
