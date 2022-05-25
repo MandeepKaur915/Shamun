@@ -54,8 +54,8 @@ jobs:
     - name: get status of jira issue
       uses: actions/github-script@v3
       env:
-        username: ${{ secrets.JIRA_USER }}
-        password: ${{ secrets.JIRA_TOKEN }}
+        $username: ${{ secrets.JIRA_USER }}
+        $password: ${{ secrets.JIRA_TOKEN }}
       with:
         Script: |
           function getTicketStatus($id) {
