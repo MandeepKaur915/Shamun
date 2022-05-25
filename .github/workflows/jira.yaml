@@ -52,6 +52,7 @@ jobs:
         JIRA_TOKEN_LOCAL: ${{ secrets.JIRA_TOKEN }}
         
     - name: get status of jira issue
+      uses: actions/github-script@v3
       with:
         Script: |
           function getTicketStatus($id) {
