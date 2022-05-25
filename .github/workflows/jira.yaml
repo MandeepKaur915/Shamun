@@ -50,3 +50,30 @@ jobs:
         JIRA_BASE_URL: "https://uneritx.atlassian.net"
         JIRA_USER_LOCAL: ${{ secrets.JIRA_USER }}
         JIRA_TOKEN_LOCAL: ${{ secrets.JIRA_TOKEN }}
+        
+    - name: get status of jira issue
+      with:
+        Script: |
+          function getTicketStatus($id) {
+              $url = "https://mandeep915.atlassian.net/rest/api/2/issue/$ticketID?fields=status";
+              $curl = curl_init();
+              curl_setopt($curl, CURLOPT_USERPWD, " ${{ secrets.JIRA_USER }}:${{ secrets.JIRA_TOKEN }};
+              curl_setopt($curl, CURLOPT_URL, $url);
+              curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+              curl_setopt($curl, CURLOPT_FOLLOWLOCATION, 1);
+              curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
+              curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
+              $issue_list = (curl_exec($curl));
+              ////echo '$issue_list===' . $issue_list;
+              $ticketData = json_decode($issue_list,true);
+              $ticketStatus = $ticketData['fields']['status']['name'];
+              ///return $ticketData['fields']['status']['name'];
+              return $ticketStatus;
+              }
+              
+           if(isset($_GET['id'])&&!empty($_GET['id'])){
+                $jiraID = $_GET['id'];
+                echo getTicketStatus("$jiraID");  
+                
+                
+              
