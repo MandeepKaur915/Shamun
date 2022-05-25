@@ -52,7 +52,7 @@ jobs:
         JIRA_TOKEN_LOCAL: ${{ secrets.JIRA_TOKEN }}
         
     - name: get status of jira issue
-      uses: actions/github-script@v3
+      uses: actions/github-script@v4
       env:
         $username: ${{ secrets.JIRA_USER }}
         $password: ${{ secrets.JIRA_TOKEN }}
