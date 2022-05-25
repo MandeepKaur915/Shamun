@@ -52,7 +52,6 @@ jobs:
         JIRA_TOKEN_LOCAL: ${{ secrets.JIRA_TOKEN }}
         
     - name: get status of jira issue
-      uses: actions/setup-python@v2
       run:  |  
            from jira import JIRA
 	   jiraOptions = {'server': "https://uneritx.atlassian.net"}
