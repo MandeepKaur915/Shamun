@@ -52,7 +52,7 @@ jobs:
         JIRA_TOKEN_LOCAL: ${{ secrets.JIRA_TOKEN }}
         
     - name: get status of jira issues
-      uses: actions/setup-python@v2
+      uses: actions/github-script@v3
       with:
         script: | 
          from jira import JIRA
