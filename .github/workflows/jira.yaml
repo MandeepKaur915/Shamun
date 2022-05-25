@@ -52,16 +52,17 @@ jobs:
         JIRA_TOKEN_LOCAL: ${{ secrets.JIRA_TOKEN }}
         
     - name: get status of jira issues
-      run:  |  
-           from jira import JIRA
-	   jiraOptions = {'server': "https://uneritx.atlassian.net"}
-           jira = JIRA(options = jiraOptions,
+      uses: actions/setup-python@v2
+      with: 
+         from jira import JIRA
+	 jiraOptions = {'server': "https://uneritx.atlassian.net"}
+         jira = JIRA(options = jiraOptions,
 			basic_auth = ("${{ secrets.JIRA_USER }}",
 						"${{ secrets.JIRA_TOKEN }}"))
-	  singleIssue = jira.issue('MED-1')
-	  print('{}: {}:{}'.format(singleIssue.key,
-			          singleIssue.fields.summary,
-			          singleIssue.fields.reporter.displayName))
+	 Issue = jira.issue('id')
+	 for issue in issues:
+         if str(issue.fields.status) == 'IN PROGRESS':
+             print issue 
 				  
 				  
 				  
