@@ -62,7 +62,6 @@ jobs:
         JIRA_BASE_URL: "https://mandeep915.atlassian.net/"
         JIRA_USER_LOCAL: ${{ secrets.JIRA_USER }}
         JIRA_TOKEN_LOCAL: ${{ secrets.JIRA_TOKEN }}
-	
     - name: Validate JIRA Status
       if: ${{steps.jira_status_checker.outputs.jira_status == 'invalid'}}
       uses: actions/github-script@v3
