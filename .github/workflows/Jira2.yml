@@ -33,7 +33,7 @@ jobs:
       uses: actions/github-script@v3
       with:
         script: |
-          core.setFailed('JIRA Issue Not Found. Please use a valid JIRA Issue')
+          core.setFailed('JIRA Issue Not Found. Please use a valid JIRA Issues')
           
     - name: checkout repo content
       uses: actions/checkout@v2 # checkout the repository content to github runner.  
